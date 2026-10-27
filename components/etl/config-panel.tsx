@@ -22,6 +22,7 @@ import {
   validarPeriodo,
 } from "@/lib/etl/extract"
 import { entero } from "@/lib/etl/format"
+import { CiudadesMapa } from "./ciudades-mapa"
 
 export function ConfigPanel({ p }: { p: Pipeline }) {
   const { config } = p
@@ -91,6 +92,17 @@ export function ConfigPanel({ p }: { p: Pipeline }) {
               Ninguna
             </Button>
           </div>
+          <CiudadesMapa
+            seleccionadas={config.ciudades}
+            bloqueado={bloqueado}
+            onAlternar={(nombre) =>
+              config.setCiudades((prev) =>
+                prev.includes(nombre)
+                  ? prev.filter((n) => n !== nombre)
+                  : [...prev, nombre]
+              )
+            }
+          />
         </fieldset>
 
         <div className="grid grid-cols-2 gap-3 sm:max-w-md">
